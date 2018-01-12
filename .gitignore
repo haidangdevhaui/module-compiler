@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+resources/
+public/
+*.html
+*.config.json
+package-lock.json

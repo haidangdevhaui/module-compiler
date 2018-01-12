@@ -10,11 +10,27 @@
         "type": "git",
         "url": "git+https://github.com/haidangdevhaui/rikkei-module-compiler.git"
     },
-    "keywords": ["rikkei", "es6", "module"],
+    "keywords": [
+        "rikkei",
+        "es6",
+        "module"
+    ],
     "author": "dangvh <dangvh@rikkeisoft.com>",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/haidangdevhaui/rikkei-module-compiler/issues"
     },
-    "homepage": "https://github.com/haidangdevhaui/rikkei-module-compiler#readme"
+    "homepage": "https://github.com/haidangdevhaui/rikkei-module-compiler#readme",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-minify-webpack-plugin": "^0.2.0",
+        "css-loader": "^0.28.8",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "node-notifier": "^5.1.2",
+        "node-sass": "^4.7.2",
+        "sass-loader": "^6.0.6",
+        "style-loader": "^0.19.1",
+        "webpack": "^3.10.0"
+    }
 }
