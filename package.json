@@ -1,7 +1,6 @@
 {
-    "_development": true,
     "name": "rikkei-module-compiler",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "ES6 syntax compiler for VanilarJS",
     "main": "index.js",
     "scripts": {
@@ -22,7 +21,7 @@
         "url": "https://github.com/haidangdevhaui/rikkei-module-compiler/issues"
     },
     "homepage": "https://github.com/haidangdevhaui/rikkei-module-compiler#readme",
-    "devDependencies": {
+    "dependencies": {
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
         "babel-minify-webpack-plugin": "^0.2.0",
