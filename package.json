@@ -1,0 +1,20 @@
+{
+    "name": "rikkei-module-compiler",
+    "version": "0.1.0",
+    "description": "ES6 syntax compiler for VanilarJS",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/haidangdevhaui/rikkei-module-compiler.git"
+    },
+    "keywords": ["rikkei", "es6", "module"],
+    "author": "dangvh <dangvh@rikkeisoft.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/haidangdevhaui/rikkei-module-compiler/issues"
+    },
+    "homepage": "https://github.com/haidangdevhaui/rikkei-module-compiler#readme"
+}
