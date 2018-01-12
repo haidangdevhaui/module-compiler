@@ -1,6 +1,7 @@
 {
+    "_development": true,
     "name": "rikkei-module-compiler",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "ES6 syntax compiler for VanilarJS",
     "main": "index.js",
     "scripts": {
@@ -34,5 +35,7 @@
         "webpack": "^3.10.0"
     },
     "preferGlobal": true,
-    "bin": "./bin/rkcompile.js"
+    "bin": {
+        "rkcompile": "./bin/rkcompile.js"
+    }
 }
