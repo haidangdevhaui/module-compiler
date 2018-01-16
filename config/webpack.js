@@ -28,24 +28,26 @@ module.exports = {
             loader: 'babel-loader'
         }],
         rules: [{
-            test: /\.s[ac]ss$/,
+            test: /\.(s[ac]ss|css)$/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
                 use: [{
                     loader: "css-loader",
                     options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false
+                        minimize: process.env.NODE_ENV == 'production' ? true : false,
+                        url: false
                     }
                 }, {
                     loader: "sass-loader",
                     options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false
+                        minimize: process.env.NODE_ENV == 'production' ? true : false,
+                        url: false
                     }
                 }]
             })
         }, {
-            test: /\.(gif|jpg|jpeg|png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url-loader?limit=100000'
+            test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
+            loader: 'url-loader?limit=100000&name=[name].[ext]'
         }]
     },
     plugins: plugins
