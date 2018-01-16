@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 var webpack = require("webpack");
-var notifier = require('node-notifier');
 var program = require('commander');
 var webpackConfig = require('../config/webpack');
 var compiler = webpack(webpackConfig);
 var config = require('../lib/libraries').mergeConfig();
+var notifier = require('../lib/libraries').pushNotify;
 var numbOfCompiler = 0;
 var compileCallback = function(err, stats) {
     numbOfCompiler++;
@@ -22,10 +22,7 @@ var compileCallback = function(err, stats) {
         if (stats.hasErrors()) {
             message = config.message.compilerError + stats.toString().substr(0, 300) + '...';
         }
-        notifier.notify({
-            title: config.name,
-            message: message
-        });
+        notifier(message);
     }
     console.log(stats.toString({
         colors: true,
