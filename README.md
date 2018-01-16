@@ -10,7 +10,7 @@ Supported:
 
 ## Installation
 
-  `npm install -g @dangvh/rikkei-module-compiler`
+  `npm install -g rikkei-module-compiler`
 
 ## Configuration
 
