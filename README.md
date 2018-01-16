@@ -10,7 +10,7 @@ Supported:
 
 ## Installation
 
-  `npm install -g rikkei-module-compiler`
+  `npm install --save rikkei-module-compiler`
 
 ## Configuration
 
@@ -62,7 +62,8 @@ Import ModuleMapper from './module_mapper'<br/>
 Boot(ModuleMapper)
 </code></pre>
 
-4.Run command `rkcompile watch`
+4.Run command `node_modules/.bin/rkcompile watch`
+If you want to minifier compiled files, please run with `NODE_ENV=production`
 
 ## Documentation
 ## Contributing
