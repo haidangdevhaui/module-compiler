@@ -34,14 +34,12 @@ module.exports = {
                 use: [{
                     loader: "css-loader",
                     options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false,
-                        url: false
+                        minimize: process.env.NODE_ENV == 'production' ? true : false
                     }
                 }, {
                     loader: "sass-loader",
                     options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false,
-                        url: false
+                        minimize: process.env.NODE_ENV == 'production' ? true : false
                     }
                 }]
             })
