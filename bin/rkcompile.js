@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
+global.Config = require('../lib/libraries').mergeConfig();
 var webpack = require("webpack");
 var program = require('commander');
 var webpackConfig = require('../config/webpack');
 var compiler = webpack(webpackConfig);
-var config = require('../lib/libraries').mergeConfig();
 var notifier = require('../lib/libraries').pushNotify;
 var numbOfCompiler = 0;
+
 var compileCallback = function(err, stats) {
     numbOfCompiler++;
     if (err) {
@@ -17,20 +18,23 @@ var compileCallback = function(err, stats) {
         return;
     }
     const info = stats.toJson();
-    if (config.notify) {
-        var message = config.message.compilerSuccess;
+    if (Config.notify) {
+        var message = Config.message.compilerSuccess;
         if (stats.hasErrors()) {
-            message = config.message.compilerError + stats.toString().substr(0, 300) + '...';
+            message = Config.message.compilerError + stats.toString().substr(0, 300) + '...';
         }
         notifier(message);
     }
     console.log(stats.toString({
         colors: true,
-        modules: numbOfCompiler == 1 ? true : false
+        modules: numbOfCompiler == 1 ? true : false,
     }));
 }
+program.option('-f, --config_file', 'Running with other config file');
+program.option('-m, --minifier', 'Minimize compiled files');
 program.version('0.1.0').description('Rikkei module compiler');
 program.command('watch').alias('w').description('Watch the filesystem for changes').action(function() {
+    console.log('watch mode is running...');
     compiler.watch({}, compileCallback);
 });
 program.command('run').alias('r').description('Run a compiler').action(function() {

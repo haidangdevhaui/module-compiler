@@ -50,6 +50,9 @@ module.exports = {
 
             // css file
             style: "css/styles.css"
-        }
+        },
+
+        // minifier
+        minifier: false,
     }
 }
