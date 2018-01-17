@@ -1,52 +1,94 @@
-/**
- * webpack config
- * @author dangvh <dangvh@rikkeisoft.com>
- * @type {object}
- */
-var config = require('../lib/libraries').mergeConfig().webpack;
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var MinifyPlugin = require("babel-minify-webpack-plugin");
-var plugins = [
-    new ExtractTextPlugin({
-        allChunks: true,
-        filename: config.output.style
-    })
-];
-if (process.env.NODE_ENV == 'production') {
-    plugins.push(new MinifyPlugin());
-}
-module.exports = {
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
+const config = require('../lib/libraries').mergeConfig().webpack;
+
+// start config
+module.exports = [{
     entry: config.entry,
     output: {
-        filename: config.output.script
+        path: config.path,
+        filename: config.output.script,
+        publicPath: config.publicPath,
     },
     module: {
-        loaders: [{
-            test: /\.js$/,
-            loader: 'babel-loader'
-        }],
-        rules: [{
-            test: /\.(s[ac]ss|css)$/,
-            use: ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: [{
-                    loader: "css-loader",
-                    options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false
+        loaders: [
+
+            // js compiler rule
+            {
+                test: /\.js$/,
+                loader: 'babel-loader'
+            },
+
+            // css compiler rule
+            {
+                test: /\.(s[ac]ss|css)$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: 'css-loader!sass-loader!resolve-url-loader!sass-loader?sourceMap&sourceComments&minimize'
+                })
+            },
+
+            // font compiler rule
+            {
+                test: /(\.(woff2?|ttf|eot|otf)$|font.*\.svg$)/,
+                loader: 'file-loader',
+                options: {
+                    name: path => {
+                        if (! /node_modules|bower_components/.test(path)) {
+                            return config.fontDirOutput + '/[name].[ext]?[hash]';
+                        }
+
+                        return config.fontDirOutput + '/vendor/' + path
+                            .replace(/\\/g, '/')
+                            .replace(
+                                /((.*(node_modules|bower_components))|fonts|font|assets)\//g, ''
+                            ) + '?[hash]';
+                    },
+                    publicPath: config.publicPath
+                }
+            },
+
+            // image compiler rule
+            {
+                test:  /(\.(png|jpe?g|gif)$|^((?!font).)*\.svg$)/,
+                loaders: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: path => {
+                                if (! /node_modules|bower_components/.test(path)) {
+                                    return config.imageDirOutput + '/[name].[ext]?[hash]';
+                                }
+                                return config.imageDirOutput + '/vendor/' + path
+                                    .replace(/\\/g, '/')
+                                    .replace(
+                                        /((.*(node_modules|bower_components))|images|image|img|assets)\//g, ''
+                                    ) + '?[hash]';
+                            },
+                            publicPath: config.publicPath
+                        }
+                    },
+                    {
+                        loader: 'img-loader',
+                        options: {
+                            enabled: true
+                        }
                     }
-                }, {
-                    loader: "sass-loader",
-                    options: {
-                        minimize: process.env.NODE_ENV == 'production' ? true : false
-                    }
-                }]
-            })
-        }, {
-            test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-            loader: 'url-loader?limit=100000&name=[name].[ext]'
-        }]
+                ]
+            }
+        ]
     },
-    plugins: plugins
-};
+    plugins: [
+        new ExtractTextPlugin(config.output.style),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+                'PUBLIC_PATH': JSON.stringify(config.publicPath)
+            }
+        }),
+        new MinifyPlugin()
+    ]
+}]
