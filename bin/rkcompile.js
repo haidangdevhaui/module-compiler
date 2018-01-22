@@ -34,10 +34,11 @@ program.option('-f, --config_file', 'Running with other config file');
 program.option('-m, --minifier', 'Minimize compiled files');
 program.version('0.1.0').description('Rikkei module compiler');
 program.command('watch').alias('w').description('Watch the filesystem for changes').action(function() {
-    console.log('watch mode is running...');
+    console.log('[watch] mode is running...');
     compiler.watch({}, compileCallback);
 });
 program.command('run').alias('r').description('Run a compiler').action(function() {
+    console.log('[run] mode is running...');
     compiler.run(compileCallback);
 });
 program.parse(process.argv);

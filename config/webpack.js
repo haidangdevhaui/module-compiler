@@ -38,7 +38,8 @@ module.exports = [{
             // js compiler rule
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                exclude: /node_modules/
             },
 
             // css compiler rule
