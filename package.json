@@ -1,6 +1,6 @@
 {
     "name": "rikkei-module-compiler",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "description": "ES6 syntax compiler for VanilarJS",
     "main": "index.js",
     "scripts": {

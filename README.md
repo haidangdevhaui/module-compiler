@@ -41,8 +41,8 @@ Supported:
 ## Usage
 1.Create `resources/assets/js/user/index.js`
 <pre><code>
-import Module from 'rikkei-module-compiler'<br/>
-export default class UserIndex extends Module {
+import { Module } from 'rikkei-module-compiler'<br/>
+export default class extends Module {
     constructor() {
         super() //required for boot() method
     }<br/>
@@ -54,7 +54,7 @@ export default class UserIndex extends Module {
 }
 </code></pre>
 
-2.Create `resources/assets/js/module_mapper.js`
+2.Create `resources/assets/js/routes.js`
 <pre><code>
 import UserIndex from './user/index'
 import UserDetail from './user/detail'<br/>
@@ -67,13 +67,15 @@ export default {
 3.Create `resources/assets/js/app.js`<br/>
 <pre><code>
 import Boot from 'rikkei-module-compiler'
-import ModuleMapper from './module_mapper'<br/>
-Boot(ModuleMapper)
+import Routes from './routes'<br/>
+Boot(Routes)
 </code></pre>
 
 4.Run command `node_modules/.bin/rkcompile watch`<br/>
-If you want to minifier compiled files, please run with `NODE_ENV=production`
-
+## Api
+- `request`: Global variable when module be called.
+- `request.params`: Return all params.
+- `request.getParam(paramName)`: Return value of paramName.
 ## Options
 - `-f|--config_file`:  Running with other config file.
 - `-m|--minifier`: Minimize compiled files.
